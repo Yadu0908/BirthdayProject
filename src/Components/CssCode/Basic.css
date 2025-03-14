@@ -1,0 +1,38 @@
+/* Hide main content on mobile */
+@media screen and (max-width: 768px) {
+  .container {
+    display: none;
+  }
+
+  .mobile-warning {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+  }
+
+  .mobile-warning h2 {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Add space below h2 */
+  }
+
+  .mobile-warning p {
+    color: black;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+  }
+}
+
+/* Show main content on desktop */
+@media screen and (min-width: 769px) {
+  .mobile-warning {
+    display: none;
+  }
+}

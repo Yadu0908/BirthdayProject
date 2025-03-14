@@ -1,0 +1,11 @@
+nav {
+    background: #000000;
+    color: white;
+    padding: 1rem;
+    display: flex;  /* Change from block to flex */
+    flex-direction: column; /* Stack paragraphs vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 40vh; /* Full screen height */
+    text-align: center; /* Center text inside */
+}

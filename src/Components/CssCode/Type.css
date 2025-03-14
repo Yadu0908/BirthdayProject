@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.typeAnimationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* Full viewport height */
+  width: 99vw; /* Full viewport width */
+  position: relative;
+  margin-top: 100px;
+  z-index: 10; /* Ensure it's above the waves */
+  html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden; /* Hides horizontal scrollbar */
+
+}
+
+}
+
+.animatedText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-size: 4em;
+  color: #dad7d7; /* Pure white text */
+  text-align: center;
+  white-space: nowrap;
+  z-index: 20; /* Ensure it's above everything */
+}
+
+.typeAnimationContainer img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 15; /* Ensure the image is above the waves */
+}
+
+/* WAVE ANIMATION */
+.waveWrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  z-index: -1; /* Keep waves in the background */
+}
+
+.waveWrapperInner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: -1px;
+  background: linear-gradient(to top, #86377b 20%, #27273c 80%);
+
+}
+
+.bgTop {
+  z-index: 5;
+}
+
+.bgMiddle {
+  z-index: 3;
+}
+
+.bgBottom {
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat no-repeat;
+  background-position: 0 bottom;
+  transform-origin: center bottom;
+}
+
+.waveTop {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveTop {
+  animation: move_wave 3s ease-in-out infinite;
+}
+
+.waveMiddle {
+  background-size: 50% 120px;
+}
+
+.waveAnimation .waveMiddle {
+  animation: move_wave 10s linear infinite;
+}
+
+.waveBottom {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveBottom {
+  animation: move_wave 15s linear infinite;
+}
+
+/* KEYFRAMES */
+@keyframes move_wave {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.55);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
