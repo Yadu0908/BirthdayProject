@@ -13,7 +13,6 @@ function App() {
     <>
       <main />
       <Login />
-{/*       <Basic /> */}
       
     </>
   );
