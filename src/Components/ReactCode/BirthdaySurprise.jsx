@@ -15,6 +15,7 @@ import {
   Zap
 } from "lucide-react";
 import "../CssCode/BirthdaySurprise.css";
+import emailjs from '@emailjs/browser';
 
 // Import your images here
 import img1 from "../../assets/images/kiran/kiran1.png";
@@ -133,7 +134,7 @@ const BirthdaySurprise = () => {
   };
 
   const handleMouseDown = (e, paperId) => {
-    e.preventDefault();
+    if(e.type === 'touchstart') e.preventDefault();
     setDraggingId(paperId);
     startPosRef.current = {
       x: e.clientX || e.touches?.[0]?.clientX,
@@ -211,6 +212,30 @@ const BirthdaySurprise = () => {
   const handleEggClick = () => {
     if (eggClicked) return;
     setEggClicked(true);
+  };
+
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Replace these with your actual IDs from EmailJS
+    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+
+    emailjs.sendForm('service_vl9ebtm', 'template_a08hnxo', form.current, 'JEsyUVWyagUZwW-jz')
+      .then((result) => {
+          console.log(result.text);
+          setLoading(false);
+          setSent(true);
+          e.target.reset(); // Clear the textarea
+      }, (error) => {
+          console.log(error.text);
+          setLoading(false);
+          alert("Oye! Kuch gadbad ho gayi. Message nahi gaya.");
+      });
   };
 
   return (
@@ -305,10 +330,6 @@ const BirthdaySurprise = () => {
               <div
                 key={index}
                 className={`message-card ${index === currentMessage ? 'active' : ''}`}
-                style={{
-                  transform: `translateX(${(index - currentMessage) * 110}%)`,
-                  opacity: index === currentMessage ? 1 : 0.3
-                }}
               >
                 <div className="message-icon">{msg.icon}</div>
                 <h3 className="message-title">{msg.title}</h3>
@@ -541,11 +562,23 @@ const BirthdaySurprise = () => {
       <section className="footer-section reveal-on-scroll">
         <div className="form-card">
           <h3>"Kida lagya kutte ?"</h3>
-          <textarea placeholder="Kripya apna exprience bhokhne ka kshat karien..."></textarea>
-          <button className="submit-btn">
-            <span>Submit Review</span>
-            <span className="btn-shine"></span>
-          </button>
+
+          {/* Wrap inputs in a form tag with ref */}
+          <form ref={form} onSubmit={sendEmail}>
+            <textarea
+              name="message" // This name must match the variable in EmailJS template {{message}}
+              placeholder="Kripya apna exprience bhokhne ka kshat karien..."
+              required
+            ></textarea>
+
+            <button className="submit-btn" type="submit" disabled={loading || sent}>
+              <span>
+                {loading ? "Sending..." : sent ? "Message Sent! ❤️" : "Submit Review"}
+              </span>
+              <span className="btn-shine"></span>
+            </button>
+          </form>
+
         </div>
         <p className="copyright">
           Created with 💖 by one and only ykyk-: Yadu

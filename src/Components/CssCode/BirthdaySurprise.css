@@ -45,7 +45,7 @@ body {
   background: var(--cream);
   color: var(--text-dark);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevents horizontal scroll on the whole page */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -55,7 +55,6 @@ html {
 
 /*
    SMOOTH TRANSITION BACKGROUND
-   This gradient spans the whole page to avoid hard lines
 */
 .surprise-container {
   width: 100%;
@@ -70,6 +69,7 @@ html {
     var(--cream) 80%,
     var(--soft-pink) 100%
   );
+  overflow-x: hidden; /* Double check to prevent side scroll */
 }
 
 /* ===========================================
@@ -104,7 +104,7 @@ html {
   position: absolute;
   width: 150%;
   height: 40px;
-  opacity: 0.1; /* Very subtle */
+  opacity: 0.1;
   animation: ribbonMove 25s linear infinite;
   white-space: nowrap;
   font-size: 1.2rem;
@@ -142,7 +142,6 @@ html {
 .hero-section {
   position: relative;
   min-height: 100vh;
-  /* Transparent to let the main gradient show */
   background: transparent;
   padding: 60px 20px 100px;
   display: flex;
@@ -153,7 +152,7 @@ html {
   z-index: 1;
 }
 
-/* Floating Background Elements (Fixed Animation) */
+/* Floating Background Elements */
 .hero-floating-elements {
   position: absolute;
   top: 0;
@@ -161,13 +160,13 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 0; /* Behind content */
+  z-index: 0;
   pointer-events: none;
 }
 
 .float-icon {
   position: absolute;
-  bottom: -50px; /* Start below screen */
+  bottom: -50px;
   opacity: 0;
   animation: floatUp 15s linear infinite;
 }
@@ -186,20 +185,10 @@ html {
 .i-12 { left: 5%; animation-duration: 25s; animation-delay: 2.5s; }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-110vh) rotate(360deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
 /* ===========================================
@@ -279,7 +268,7 @@ html {
 }
 
 /* ===========================================
-   FIXED CENTERED TITLE LAYOUT (FLEXBOX)
+   FIXED CENTERED TITLE LAYOUT
    =========================================== */
 .title-container {
   display: flex;
@@ -289,7 +278,7 @@ html {
   width: 100%;
   margin-top: 20px;
   z-index: 2;
-  flex-wrap: wrap; /* Allow wrapping on very small screens */
+  flex-wrap: wrap;
 }
 
 .static-text {
@@ -304,9 +293,9 @@ html {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 700;
-  color: var(--accent-pink); /* Cute Pink */
+  color: var(--accent-pink);
   white-space: nowrap;
-  min-width: 150px; /* Prevents layout shift */
+  min-width: 150px;
   text-align: left;
 }
 
@@ -322,8 +311,8 @@ html {
   display: block;
   width: 100%;
   height: auto;
-  color: transparent; /* Hidden to allow gradient flow */
-  opacity: 0.1; /* Subtle texture */
+  color: transparent;
+  opacity: 0.1;
 }
 
 /* ===========================================
@@ -332,7 +321,7 @@ html {
 .section {
   padding: var(--section-padding) 20px;
   text-align: center;
-  background: transparent; /* Transparent for smooth gradient */
+  background: transparent;
   position: relative;
   z-index: 1;
 }
@@ -363,7 +352,7 @@ html {
 }
 
 /* ===========================================
-   CUTE MESSAGES SECTION
+   CUTE MESSAGES SECTION (FIXED)
    =========================================== */
 .cute-messages-section { }
 
@@ -372,6 +361,9 @@ html {
   margin: 0 auto;
   position: relative;
   min-height: 320px;
+  /* FIX: Hide overflow so next cards don't peek in weirdly */
+  overflow: hidden;
+  padding: 20px 0;
 }
 
 .carousel-container {
@@ -393,11 +385,16 @@ html {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.5s ease;
   border: 1px solid rgba(0,0,0,0.05);
+  /* Ensure card is centered */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+/* Active card logic handled by React inline styles, but base styles here */
 .message-card.active {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-pink);
+  z-index: 2;
 }
 
 .message-icon { margin-bottom: 18px; }
@@ -514,7 +511,7 @@ html {
 .image-container {
   width: 100%;
   height: 100%;
-  background: #000; /* Fallback background */
+  background: #000;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -524,7 +521,7 @@ html {
 .book-image-full {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Fixes cropping */
+  object-fit: contain;
   max-height: 100%;
 }
 
@@ -538,7 +535,7 @@ html {
 }
 
 /* ===========================================
-   GAME SECTION (SCRAMBLE)
+   GAME SECTION
    =========================================== */
 .game-section { }
 
@@ -610,7 +607,6 @@ html {
   width: 150px;
   height: 150px;
   background: #fff;
-  /* Crumpled Texture Effect */
   background-image: repeating-linear-gradient(
     45deg,
     rgba(0,0,0,0.02) 0px,
@@ -669,7 +665,6 @@ html {
   animation: fall linear infinite;
 }
 
-/* Confetti Shapes */
 .confetti.square { border-radius: 0; background: var(--accent-red); }
 .confetti.circle { border-radius: 50%; background: var(--accent-blue); }
 .confetti.star {
@@ -686,7 +681,7 @@ html {
 }
 
 /* ===========================================
-   KINDER JOY SECTION (UPDATED)
+   KINDER JOY SECTION (FIXED SPACING)
    =========================================== */
 .egg-section { }
 
@@ -702,7 +697,7 @@ html {
 .kinder-egg {
   cursor: pointer;
   transition: all 0.5s ease;
-  animation: eggShake 0.5s infinite ease-in-out; /* Faster Shake */
+  animation: eggShake 0.5s infinite ease-in-out;
   z-index: 5;
 }
 
@@ -834,7 +829,7 @@ html {
 .timeline-content p { font-size: 0.95rem; line-height: 1.6; color: var(--text-dark); }
 
 /* ===========================================
-   GALLERY SECTION (SUBTLE HOVER)
+   GALLERY SECTION
    =========================================== */
 .gallery-section { }
 
@@ -972,7 +967,7 @@ html {
 .copyright { margin-top: 50px; font-size: 0.95rem; opacity: 0.7; }
 
 /* ===========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (MOBILE FIXES)
    =========================================== */
 @media (max-width: 1024px) {
   :root { --section-padding: 80px; }
@@ -981,44 +976,87 @@ html {
 
 @media (max-width: 768px) {
   :root { --section-padding: 60px; }
+
+  /* Hero */
+  .string-container { height: 180px; }
   .photo-frame { width: 95px; height: 95px; }
-  .book { width: 310px; height: 430px; }
-  .message-card { padding: 38px 28px; }
+  .title-container { flex-direction: column; gap: 5px; }
+  .static-text, .dynamic-text { font-size: 2.5rem; text-align: center; }
+  .dynamic-text { min-width: auto; }
+
+  /* Carousel Fixes */
+  .messages-carousel {
+    padding: 10px 0;
+  }
+  .message-card {
+    width: 85%; /* Responsive width */
+    padding: 30px 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .message-card.active {
+    /* Ensure only active is fully visible/interactive */
+    position: relative;
+    transform: none;
+    left: 0;
+    margin: 0 auto;
+  }
+  /* Hide non-active cards in mobile flow to prevent overlap */
+  .message-card:not(.active) {
+    display: none;
+  }
+  .carousel-container {
+    height: auto; /* Let content dictate height */
+    min-height: 300px;
+  }
+
+  /* Book */
+  .book-wrapper { perspective: 1000px; }
+  .book { width: 85vw; height: 120vw; }
+
+  /* Game */
   .game-container { height: 380px; }
-  .crumpled-paper { width: 130px; height: 130px; }
-  .timeline::before { left: 18px; }
-  .timeline-dot { left: 18px; }
-  .timeline-item { justify-content: flex-end !important; }
-  .timeline-content { width: calc(100% - 55px); }
+  .crumpled-paper { width: 110px; height: 110px; }
+
+  /* Kinder Joy Fix */
+  .egg-container {
+    min-height: 300px; /* Reduced height */
+  }
+  .kinder-egg img {
+    width: 180px; /* Smaller egg */
+    height: 180px;
+  }
+  .warning-text { font-size: 0.9rem; padding: 10px; }
+
+  /* Timeline */
+  .timeline::before { left: 20px; }
+  .timeline-dot { left: 20px; }
+  .timeline-item { justify-content: flex-start !important; padding-left: 50px; }
+  .timeline-content { width: 100%; text-align: left; }
+
+  /* Gallery */
   .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
   .g-img { height: 180px; }
   .gallery-item.wide { grid-column: span 1; }
   .gallery-item.tall { grid-row: span 1; }
   .gallery-item.tall .g-img { height: 180px; }
 
-  .title-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 5px;
-  }
-  .title-left, .title-right {
-    justify-self: center;
-    text-align: center;
-  }
+  /* Footer */
+  .form-card { padding: 30px 20px; }
 }
 
 @media (max-width: 480px) {
   :root { --section-padding: 50px; }
+
   .photo-frame { width: 75px; height: 75px; }
+
+  /* Adjust photo positions for smaller screens */
   .f-1, .f-2, .f-3, .f-4, .f-5, .f-6 { left: calc((100% / 6) * var(--index) - 5%); }
   .f-1 { --index: 0.5; } .f-2 { --index: 1.5; } .f-3 { --index: 2.5; }
   .f-4 { --index: 3.5; } .f-5 { --index: 4.5; } .f-6 { --index: 5.5; }
+
   .book { width: 270px; height: 370px; }
   .game-container { height: 330px; }
-  .crumpled-paper { width: 110px; height: 110px; }
-  .form-card { padding: 30px 22px; }
-  .kinder-egg img { width: 180px; height: 180px; }
-  .warning-text { font-size: 1rem; }
 }
 
 /* ===========================================
